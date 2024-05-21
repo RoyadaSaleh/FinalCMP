@@ -5,28 +5,15 @@ import { Typography, Form, Input, Button } from 'antd';
  const LeftForm = (props) => {
      const [form] = Form.useForm();
      const onFinish = (values) => {
-         fetch('/api/recipes', {
-             method: 'POST',
-             body: JSON.stringify({
-                 title: values.title,
-                 directions: values.directions,
-                 ingredients: values.ingredients
-             }),
-             headers: { 'Content-Type': 'application/json' },
-         }).then(() => {
-             const n_recipe = {
-                 // eslint-disable-next-line react/prop-types
-                 id: props.len(),
-                 title: values.title,
-                 directions: values.directions,
-                 ingredients: values.ingredients
-             }
+        const n_recipe = {
              // eslint-disable-next-line react/prop-types
-             props.updateRecipe(n_recipe)
-             form.resetFields();
-         }).catch(() => {
-             alert('Has Error While Create try please again')
-         })
+             id: props.len(),
+             title: values.title,
+             directions: values.directions,
+             ingredients: values.ingredients
+         }
+         props.updateRecipe(n_recipe)
+         form.resetFields();
      };
      return (
          <Form form={form} style={{ backgroundColor: 'white' }} onFinish={onFinish}>

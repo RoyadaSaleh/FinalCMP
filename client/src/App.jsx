@@ -5,16 +5,23 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [recipes, setRecipe] = useState([]);
+
+  const len = () => recipes.length;
+   const updateRecipe = (n_recipe) => {
+     console.log('hello')
+     setRecipe([...recipes, n_recipe])
+   }
+
   const getRecipes = async () => {
     try {
       const response = await fetch('/api/recipes')
       const data = await response.json()
-      const n_data = data['rows'].map((x) => {
+      const n_data = data['rows'].map((recipe) => {
         return {
-          ingredients: x.ingredients,
-          directions: x.directions,
-          title: x.title,
-          id: x.id
+          ingredients: recipe.ingredients,
+          directions: recipe.directions,
+          title: recipe.title,
+          id: recipe.id
         }
       })
       setRecipe(n_data)
@@ -22,12 +29,6 @@ function App() {
       console.log(e)
     }
   }
-
-  const len = () => recipes.length;
-   const updateRecipe = (n_recipe) => {
-     console.log('hello')
-     setRecipe([...recipes, n_recipe])
-   }
    useEffect(() => {
      getRecipes()
    }, []);
