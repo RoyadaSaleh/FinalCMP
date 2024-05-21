@@ -21,7 +21,7 @@ const Pool = require('pg').Pool
      const title = req.body.title
      const ingredients = req.body.ingredients
      const directions = req.body.directions
-     pool.query('INSERT INTO recipe(title, ingredients, directions) VALUES($1, $2) RETURNING id', [title, ingredients, directions], (error, result) => {
+     pool.query('INSERT INTO recipes(title, ingredients, directions) VALUES($1, $2, $3) RETURNING id', [title, ingredients, directions], (error, result) => {
          if (error) {
              throw error
          }
@@ -35,7 +35,7 @@ const Pool = require('pg').Pool
          if (error) {
              throw error
          }
-         return res.status(200).json(result)
+         return res.status(200).json({ id: result.rows[0].id })
      })
  }
 

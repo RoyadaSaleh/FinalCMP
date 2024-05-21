@@ -1,34 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Form from './components/Form'
+import { Layout, Row, Col, Divider } from 'antd';
+import Items from './components/Items';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [recipes, setRecipe] = useState([]);
+  const getRecipes = async () => {
+    try {
+      const response = await fetch('/api/recipes')
+      const data = await response.json()
+      const n_data = data['rows'].map((x) => {
+        return {
+          ingredients: x.ingredients,
+          directions: x.directions,
+          title: x.title,
+          id: x.id
+        }
+      })
+      setRecipe(n_data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const len = ()=> recipes.length;
+   const updateRecipe = (n_recipe) => {
+     console.log('hello')
+     setRecipe([...recipes, n_recipe])
+   }
+   useEffect(() => {
+     getRecipes()
+   }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Layout>
+       <Row justify="space-evenly" style={{ backgroundColor: 'white' }} >
+       </Row>
+     </Layout>
   )
 }
 
