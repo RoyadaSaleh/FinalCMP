@@ -1,5 +1,6 @@
 import Form from './components/Form'
 import { Layout, Row, Col, Divider } from 'antd';
+import Items from './components/Items';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
     }
   }
 
-  const len = ()=> recipes.length;
+  const len = () => recipes.length;
    const updateRecipe = (n_recipe) => {
      console.log('hello')
      setRecipe([...recipes, n_recipe])
@@ -36,6 +37,7 @@ function App() {
        <Row justify="space-evenly" style={{ backgroundColor: 'white' }} >
        <Col span={6} style={{ padding: '.5rem 1.5rem', }} ><Form len={len} updateRecipe={updateRecipe} /></Col>
          <Col ><Divider type='vertical' style={{ height: '100dvh' }}></Divider></Col>
+         <Col span={17} ><Items recipe={recipes} /></Col>
        </Row>
      </Layout>
   )
