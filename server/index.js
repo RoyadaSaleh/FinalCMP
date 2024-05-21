@@ -8,7 +8,6 @@ const db = require('./db')
 
  app.get('/api/recipes', db.getRecipe)
 
-//Create Links
 app.post('/api/recipes', db.createRecipe)
 
 //Delete Links
