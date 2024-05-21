@@ -9,7 +9,7 @@ const Pool = require('pg').Pool
      })
 
  const getRecipe = (req, res) => {
-     pool.query('SELECT * FROM recipe ORDER BY id ASC', (error, result) => {
+     pool.query('SELECT * FROM recipes ORDER BY id ASC', (error, result) => {
          if (error) {
              throw error
          }
@@ -31,7 +31,7 @@ const Pool = require('pg').Pool
 
  const deleteRecipe = (req, res) => {
      const id = req.params.id
-     pool.query('DELETE FROM recipe WHERE id=$1', [id], (error, result) => {
+     pool.query('DELETE FROM recipes WHERE id=$1', [id], (error, result) => {
          if (error) {
              throw error
          }
