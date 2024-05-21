@@ -8,6 +8,11 @@ const db = require('./db')
 
  app.get('/api/recipes', db.getRecipe)
 
+ app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'index.html'))
+})
+
+//create links 
 app.post('/api/recipes', db.createRecipe)
 
 //Delete Links
